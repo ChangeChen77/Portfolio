@@ -29,8 +29,9 @@ class FinancialSeries:
         df['Year']=pd.DatetimeIndex(df.index).year
         dfGroupByYear=np.exp(df.groupby('Year').sum())-1
         self.EachYearRet=dfGroupByYear
-    def RollingRet(self,m):
+    def CalRollingRet(self,m):
         #計算滾動報酬率，以月資料頻率，並且將報酬率轉為年化，可搭配LineChart
+        #外部參數－m，區間
         df=self.DailyLnRet.copy()
         df['Year']=pd.DatetimeIndex(df.index).year
         df['Month']=pd.DatetimeIndex(df.index).month
@@ -47,6 +48,6 @@ def main():
     AssetPool.CalToCumLnRet()
     AssetPool.CalEachYearRet()
     #AssetPool.EachYearRet.plot.bar()
-    AssetPool.RollingRet(72)
+    AssetPool.CalRollingRet(72)
     AssetPool.RollingYearlyRet.plot.line()
 main()
